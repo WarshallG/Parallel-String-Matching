@@ -1,0 +1,20 @@
+data/software_antivirus/opencv-4.10.0/include/opencv2/opencv.bin virus03.bin virus05.bin virus07.bin virus09.bin
+data/software_antivirus/opencv-4.10.0/samples/va_intel/software.bin virus01.bin virus02.bin virus03.bin virus05.bin virus08.bin
+data/software_antivirus/opencv-4.10.0/samples/data/aloeL.jpg virus01.bin virus05.bin
+data/software_antivirus/opencv-4.10.0/doc/js_tutorials/js_setup/js_setup/js_setup.markdown virus05.bin
+data/software_antivirus/opencv-4.10.0/modules/python/bindings/import.bin virus03.bin virus05.bin virus07.bin virus09.bin
+data/software_antivirus/opencv-4.10.0/modules/core/include/opencv2/core/ocl.hpp virus01.bin
+data/software_antivirus/opencv-4.10.0/apps/version/version_control.bin virus01.bin virus04.bin virus07.bin virus10.bin
+data/software_antivirus/opencv-4.10.0/cmake/android/android_gradle_projects.cmake virus02.bin
+data/software_antivirus/opencv-4.10.0/data/lbpcascades/lbpcascade_frontalface_improved.xml virus02.bin virus04.bin
+data/software_antivirus/opencv-4.10.0/samples/gpu/hog.cpp virus03.bin
+data/software_antivirus/opencv-4.10.0/samples/data/ela_original.jpg virus03.bin virus07.bin
+data/software_antivirus/opencv-4.10.0/platforms/ios/ios_make.bin virus04.bin virus06.bin virus08.bin virus10.bin
+data/software_antivirus/opencv-4.10.0/3rdparty/openjpeg/openjp2/t2.h virus04.bin
+data/software_antivirus/opencv-4.10.0/doc/tutorials/objdetect/aruco_board_detection/aruco_board_detection.markdown virus08.bin
+data/software_antivirus/opencv-4.10.0/modules/stitching/src/blenders.cpp virus08.bin virus09.bin
+data/software_antivirus/opencv-4.10.0/modules/imgcodecs/src/grfmt_exr.cpp virus06.bin virus10.bin
+data/software_antivirus/opencv-4.10.0/apps/model-diagnostics/model_diagnostics.cpp virus06.bin
+data/software_antivirus/opencv-4.10.0/platforms/wince/readme.md virus10.bin
+data/software_antivirus/opencv-4.10.0/modules/imgproc/CMakeLists.txt virus09.bin
+data/software_antivirus/opencv-4.10.0/doc/tutorials/gpu/gpu-basics-similarity/gpu_basics_similarity.markdown virus07.bin
