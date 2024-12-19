@@ -10,11 +10,11 @@ pip install -r requirements.txt
 
 ## 程序执行方式
 
-### 场景 1 运行方式
+### 场景 1：文档检索 运行方式
 ```bash
 python document_retrieval.py
 ```
-### 场景 2 运行方式
+### 场景 2：软件杀毒 运行方式
 ```bash
 python software_antivirus.py
 ```
