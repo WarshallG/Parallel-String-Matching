@@ -6,7 +6,7 @@ import concurrent.futures
 from tqdm import tqdm
 from kmp import par_kmp_search
 
-def match_helper(text, pattern, match_type, num_processes = os.cpu_count()):
+def match_helper(text, pattern, match_type, num_processes = 10):
     if match_type == 'match_pattern':  # 书上的并行字符串匹配算法
         func = match_pattern
     elif match_type == 'kmp_search':   # 串行KMP算法
@@ -72,34 +72,35 @@ if __name__ == '__main__':
 
     print(f"匹配结束，用时{time.time() - start_time:.2f}s")
 
-    # 保存输出
-    output_file = 'result_document.txt'
+    # # 保存输出
+    # output_file = '../result_document.txt'
 
-    with open(output_file, 'w', encoding='utf-8') as file:
-        for lst in match_list:
-            line = f"{len(lst)} " + " ".join(map(str, lst))
-            file.write(line + "\n")
+    # with open(output_file, 'w', encoding='utf-8') as file:
+    #     for lst in match_list:
+    #         line = f"{len(lst)} " + " ".join(map(str, lst))
+    #         file.write(line + "\n")
 
-    print(f"匹配点已保存在{output_file}中")
-
-
-    print("串行KMP算法检测...")
-    start_time = time.time()
-    for idx, pattern in enumerate(pattern_list):
-        print(f"正在匹配第 {idx + 1} 个模式: {pattern}")
-        time1 = time.time()
-        matches = match_helper(target, pattern, "kmp_search")
-        print(f'第{idx}个模式匹配结束. 用时{time.time() - time1:.2f}s.') 
-
-    print(f"串行KMP测试结束，用时: {time.time() - start_time:.2f}s.\n")
+    # print(f"匹配点已保存在{output_file}中")
 
 
-    print("并行KMP算法检测...")
-    start_time = time.time()
-    for idx, pattern in enumerate(pattern_list):
-        print(f"正在匹配第 {idx + 1} 个模式: {pattern}")
-        time1 = time.time()
-        matches = match_helper(target, pattern, "par_kmp_search")
-        print(f'第{idx}个模式匹配结束. 用时{time.time() - time1:.2f}s.') 
+    # print("串行KMP算法检测...")
+    # start_time = time.time()
+    # for idx, pattern in enumerate(pattern_list):
+    #     print(f"正在匹配第 {idx + 1} 个模式: {pattern}")
+    #     time1 = time.time()
+    #     matches = kmp_search(target, pattern)
+    #     print(f'第{idx}个模式匹配结束. 用时{time.time() - time1:.2f}s.') 
 
-    print(f"并行KMP测试结束，用时: {time.time() - start_time:.2f}s.")
+    # print(f"串行KMP测试结束，用时: {time.time() - start_time:.2f}s.\n")
+
+
+    # print("并行KMP算法检测...")
+    # start_time = time.time()
+    # for idx, pattern in enumerate(pattern_list):
+    #     print(f"正在匹配第 {idx + 1} 个模式: {pattern}")
+    #     time1 = time.time()
+    #     # matches = match_helper(target, pattern, "par_kmp_search")
+    #     matches = par_kmp_search(target, pattern)
+    #     print(f'第{idx}个模式匹配结束. 用时{time.time() - time1:.2f}s.') 
+
+    # print(f"并行KMP测试结束，用时: {time.time() - start_time:.2f}s.")

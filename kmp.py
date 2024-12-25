@@ -1,46 +1,75 @@
 import concurrent.futures
 import os
 
+# def kmp_search(text, pattern):
+#     m, n = len(pattern), len(text)
+#     lps = [0] * m 
+#     j = 0
+#     results = []
+    
+#     def compute_lps():
+#         length = 0
+#         i = 1
+#         while i < m:
+#             if pattern[i] == pattern[length]:
+#                 length += 1
+#                 lps[i] = length
+#                 i += 1
+#             else:
+#                 if length != 0:
+#                     length = lps[length - 1]
+#                 else:
+#                     lps[i] = 0
+#                     i += 1
+
+#     compute_lps()
+
+#     i = 0  # text index
+#     while i < n:
+#         if pattern[j] == text[i]:
+#             i += 1
+#             j += 1
+        
+#         if j == m:
+#             results.append(i - j)
+#             j = lps[j - 1]
+#         elif i < n and pattern[j] != text[i]:
+#             if j != 0:
+#                 j = lps[j - 1]
+#             else:
+#                 i += 1
+#     return results
+
+
 def kmp_search(text, pattern):
     m, n = len(pattern), len(text)
-    lps = [0] * m 
-    j = 0
+    if m == 0 or n == 0:  # 边界情况处理
+        return []
+
+    # 计算部分匹配表（Longest Prefix Suffix, LPS）
+    lps = [0] * m
+    length = 0
+    for i in range(1, m):
+        while length > 0 and pattern[i] != pattern[length]:
+            length = lps[length - 1]  # 回退到之前的最长前缀
+        if pattern[i] == pattern[length]:
+            length += 1
+        lps[i] = length
+
+    # KMP匹配过程
     results = []
-    
-    def compute_lps():
-        length = 0
-        i = 1
-        while i < m:
-            if pattern[i] == pattern[length]:
-                length += 1
-                lps[i] = length
-                i += 1
-            else:
-                if length != 0:
-                    length = lps[length - 1]
-                else:
-                    lps[i] = 0
-                    i += 1
-
-    compute_lps()
-
-    i = 0  # text index
-    while i < n:
-        if pattern[j] == text[i]:
-            i += 1
+    j = 0  # pattern index
+    for i in range(n):  # text index
+        while j > 0 and text[i] != pattern[j]:
+            j = lps[j - 1]  # 回退到之前的最长前缀
+        if text[i] == pattern[j]:
             j += 1
-        
-        if j == m:
-            results.append(i - j)
-            j = lps[j - 1]
-        elif i < n and pattern[j] != text[i]:
-            if j != 0:
-                j = lps[j - 1]
-            else:
-                i += 1
+        if j == m:  # 完全匹配
+            results.append(i - m + 1)
+            j = lps[j - 1]  # 准备寻找下一个匹配
     return results
 
-def par_kmp_search(text, pattern, num_threads=os.cpu_count() // 2):
+def par_kmp_search(text, pattern, num_threads=20):
     text_len = len(text)
     pattern_len = len(pattern)
     # 每个块的大小，至少是模式串长度
@@ -49,7 +78,7 @@ def par_kmp_search(text, pattern, num_threads=os.cpu_count() // 2):
     futures = {}
 
     # 创建线程池
-    with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
+    with concurrent.futures.ProcessPoolExecutor(max_workers=num_threads) as executor:
         # 将文本分块并分配任务
         for i in range(num_threads):
             start = i * block_size

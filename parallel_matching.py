@@ -22,20 +22,20 @@ def process_block(pattern, start, end):
         block_result.append((j, calculate_witness(pattern, j)))
     return block_result
 
-def compute_witness_parallel_process(pattern, m, num_processes=4):
+def compute_witness_parallel_process(pattern, m, num_threads=4):
     wit_length = m // 2 + 1 if m % 2 == 0 else m // 2 + 2  # 奇数要多算一个
     wit = [0] * wit_length
 
     # 计算每块的范围
     total_tasks = wit_length - 1
-    block_size = math.ceil(total_tasks / num_processes)
+    block_size = math.ceil(total_tasks / num_threads)
     blocks = [
         (i * block_size + 1, min((i + 1) * block_size, total_tasks))
-        for i in range(num_processes)
+        for i in range(num_threads)
     ]
 
     # 并行处理
-    with ThreadPoolExecutor(max_workers=num_processes) as executor:
+    with ThreadPoolExecutor(max_workers=num_threads) as executor:
         futures = [executor.submit(process_block, pattern, start, end) for start, end in blocks]
         results = []
         for future in concurrent.futures.as_completed(futures):
@@ -198,7 +198,7 @@ def match_pattern(T, P):
     if m < 2500:
         witness = compute_witness_serial(P, m)
     else:
-        witness = compute_witness_parallel_process(P, m, num_processes=4)
+        witness = compute_witness_parallel_process(P, m, num_threads=4)
     
     period = get_period(witness)
 
@@ -219,7 +219,7 @@ if __name__ == "__main__":
 
     time1 = time.time()
     # 并行
-    wit = compute_witness_parallel_process(pattern, m, num_processes=10)
+    wit = compute_witness_parallel_process(pattern, m, num_threads=10)
     print(f"Witness: {wit}")
     # 串行
     wit = compute_witness_serial(pattern, m)

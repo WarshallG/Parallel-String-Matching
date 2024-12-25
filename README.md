@@ -19,7 +19,7 @@ python document_retrieval.py
 python software_antivirus.py
 ```
 
-### 直接同时运行两个程序
+### 直接同时运行两个程序（在code文件夹下执行）
 ```bash
 bash run.sh
 ```

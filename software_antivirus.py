@@ -79,7 +79,7 @@ if __name__ == "__main__":
     # 配置路径
     base_folder = '../data/software_antivirus/opencv-4.10.0'
     virus_folder = '../data/software_antivirus/virus'
-    result_file_path = 'result_software.txt'
+    result_file_path = '../result_software.txt'
 
     # 扫描病毒并保存结果
     time1 = time.time()
